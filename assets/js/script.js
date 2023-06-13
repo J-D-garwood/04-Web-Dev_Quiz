@@ -2,11 +2,6 @@ var start_button = document.querySelector(".start-button");
 var body = document.querySelector("body");
 var main = document.querySelector("#page-content");
 
-var Break = document.createElement("br");
-var Break_2 = document.createElement("br")
-var Break_3 = document.createElement("br")
-var Break_4 = document.createElement("br")
-
 var q1 = "What does HTML stand for?"
 var q1a = "Hyperlinks and Text Markup Language"
 var q1b = "Home Tool Markup Language"
@@ -29,7 +24,7 @@ var q4 = "How do you write \"Hello World\" in an alert box?"
 var q4a = "msgBox(\"Hello World\");"
 var q4b = "msg(\"Hello World\");"
 var q4c = "alert(\"Hello World\");" //correct answer
-var q4d = "alertBox(\"Hellow World\");"
+var q4d = "alertBox(\"Hello World\");"
 
 var Highscores = {
     players: [],
@@ -40,7 +35,7 @@ var Highscores = {
     }
 }
 
-function Question(Q, a, b, c, d) {
+function Generate_Question(Q, a, b, c, d) {
     //loop to remove all main's current child elements
     while (main.childElementCount>0) {
         main.children[0].remove();
@@ -53,27 +48,26 @@ function Question(Q, a, b, c, d) {
     var answer_a = document.createElement("button")
     answer_a.textContent = "1. " + a;
     document.getElementById("page-content").appendChild(answer_a);
-    document.getElementById("page-content").appendChild(Break);
 
     var answer_b = document.createElement("button")
     answer_b.textContent = "2. " + b;
     document.getElementById("page-content").appendChild(answer_b);
-    document.getElementById("page-content").appendChild(Break_2);
 
     var answer_c = document.createElement("button")
     answer_c.textContent = "3. " + c;
     document.getElementById("page-content").appendChild(answer_c);
-    document.getElementById("page-content").appendChild(Break_3);
 
     var answer_d = document.createElement("button")
     answer_d.textContent = "4. " + d;
     document.getElementById("page-content").appendChild(answer_d);
-    document.getElementById("page-content").appendChild(Break_4);
 }
 
 function Quiz(event) {
     event.preventDefault();
-    Question(q1, q1a, q1b, q1c, q1d);
+    console.log("quiz activated")
+    scores = []
+    /*Generate_Question(q1, q1a, q1b, q1c, q1d);*/
+    Generate_Question(q4, q4a, q4b, q4c, q4d);
 }
 
 start_button.addEventListener("click",Quiz);

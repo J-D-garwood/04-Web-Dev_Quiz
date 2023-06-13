@@ -7,6 +7,7 @@
 body {
     border: none;
 }
+
 header {
     display: flex;
     height: 50px;
@@ -21,6 +22,15 @@ h1 {
     margin-bottom: 10px;
 }
 
+button {
+    display: inline-block;
+    color: white;
+    background-color: rgb(69, 7, 69);
+}
+button:hover {
+    background-color: purple;
+    cursor: pointer;
+}
 
 #timer {
     margin-right:0;
