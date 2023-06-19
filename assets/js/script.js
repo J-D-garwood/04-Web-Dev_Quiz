@@ -111,6 +111,24 @@ function Quiz_end_from_completion(event) {
     printedscore.textContent = "your final score was " + JSON.stringify(score)
     document.getElementById("endscreen").appendChild(printedscore)
 
+    var input_sect = document.createElement("div")
+    input_sect.setAttribute("id","inputsect")
+    input_sect.setAttribute("style", "display:flex; margin-top: 30px")
+    document.getElementById("endscreen").appendChild(input_sect)
+
+    var enterinitals = document.createElement("div")
+    enterinitals.textContent = "Enter Initials: "
+    enterinitals.setAttribute("style", "height: 20px")
+    document.getElementById("inputsect").appendChild(enterinitals)
+
+    var input_entry = document.createElement("input")
+    input_entry.setAttribute("style", "height: 15px; width: 220px")
+    document.getElementById("inputsect").appendChild(input_entry)
+
+    var submit_button = document.createElement("button")
+    submit_button.textContent = "Submit"
+    document.getElementById("inputsect").appendChild(submit_button)
+
     scores = scores + " " + JSON.stringify(score)
     localStorage.setItem("scores", scores)
 }
