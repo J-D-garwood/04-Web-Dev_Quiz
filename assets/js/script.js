@@ -50,7 +50,6 @@ function countdown() {
             /*Something goes here */
         }
     }, 1000)
-return timeleft
 }
 
 function Correct_banner() {
@@ -87,6 +86,11 @@ function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
     answer_d.textContent = "4. " + d;
     document.getElementById("page-content").appendChild(answer_d);
 }
+
+function HandleFormSubmit(event) {
+    event.preventDefault
+}
+
 
 function Quiz_end_from_completion(event) {
     event.preventDefault()
@@ -129,8 +133,11 @@ function Quiz_end_from_completion(event) {
     submit_button.textContent = "Submit"
     document.getElementById("inputsect").appendChild(submit_button)
 
-    scores = scores + " " + JSON.stringify(score)
-    localStorage.setItem("scores", scores)
+    var button_5 = document.querySelector("button")
+    button_5.addEventListener("click", HandleFormSubmit)
+
+    /*scores = scores + " " + JSON.stringify(score)
+    localStorage.setItem("scores", scores)*/
 }
 
 function Quiz_end_from_timeout(event) {
