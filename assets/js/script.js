@@ -28,35 +28,38 @@ var q4b = "msg(\"Hello World\");"
 var q4c = "alert(\"Hello World\");" //correct answer
 var q4d = "alertBox(\"Hello World\");"
 
-var Highscores = {
-    players: [],
-    noOfPlayers: 0,
-    addNewPlayer: function(name, score) {
-        this.noOfPlayers = this.noOfPlayers + 1;
-        /*TBC */
-    }
+var score = 0 //holds the score
+var timeleft = 75 //holds the timer
+var scores = localStorage.getItem("scores")
+if (scores != null) {
+    string_scorelist = scores
+    score_list = string_scorelist.split(" ")
+    score_list_b = score_list.slice(1)
+    console.log(score_list_b)
 }
 
 function countdown() {
-    var timeleft = 75
-
     var timeInterval = setInterval(function() {
         if (timeleft>0) {
             clock.textContent = 'Time: ' + timeleft;
             timeleft--;
         } else {
-            clock.textContent = '';
+            clock.textContent = 'TIME OUT!';
             clearInterval(timeInterval);
 
             /*Something goes here */
         }
     }, 1000)
-
+return timeleft
 }
 
-function endquiz() {
+function Correct_banner() {
+    /*function to display correct banner*/
+} 
 
-}
+function inorrect_banner() {
+    /*function to display incorrect banner*/
+} 
 
 function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
     //loop to remove all main's current child elements
@@ -85,28 +88,71 @@ function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
     document.getElementById("page-content").appendChild(answer_d);
 }
 
+function Quiz_end_from_completion(event) {
+    event.preventDefault()
+    choice_4 = event.target.textContent
+    if (choice_4 ==="3. " +q4c) {
+        score++;
+    }
+
+    while (main.childElementCount>0) {
+        main.children[0].remove();
+    }
+    var endscreen = document.createElement("div")
+    endscreen.setAttribute("id","endscreen")
+    endscreen.setAttribute("style", "width:800px; margin:auto; text-align:left")
+    document.getElementById("page-content").appendChild(endscreen)
+
+    var Alldone = document.createElement("h1")
+    Alldone.textContent = "All done"
+    document.getElementById("endscreen").appendChild(Alldone)
+
+    var printedscore = document.createElement("p")
+    printedscore.textContent = "your final score was " + JSON.stringify(score)
+    document.getElementById("endscreen").appendChild(printedscore)
+
+    scores = scores + " " + JSON.stringify(score)
+    localStorage.setItem("scores", scores)
+}
+
+function Quiz_end_from_timeout(event) {
+    event.preventDefault()
+}
+
 /*Generates Q4*/
 function Quiz_q4(event) {
+    choice_3 = event.target.textContent
+    if (choice_3 ==="4. " +q3d) {
+        score++;
+    } else {
+        timeleft = timeleft - 15
+    }
+
     event.preventDefault();
     Generate_Question(q4, q4a, q4b, q4c, q4d)
-    console.log("Quiz Activated - 4")
     var buttons_4 = document.querySelectorAll("button")
     var buttons_41 = buttons_4[0]
     var buttons_42 = buttons_4[1]
     var buttons_43 = buttons_4[2]
     var buttons_44 = buttons_4[3]
 
-    buttons_41.addEventListener("click",Quiz_q4)
-    buttons_42.addEventListener("click",Quiz_q4)
-    buttons_43.addEventListener("click",Quiz_q4)
-    buttons_44.addEventListener("click",Quiz_q4)
+    buttons_41.addEventListener("click",Quiz_end_from_completion)
+    buttons_42.addEventListener("click",Quiz_end_from_completion)
+    buttons_43.addEventListener("click",Quiz_end_from_completion)
+    buttons_44.addEventListener("click",Quiz_end_from_completion)
 }
 
 /*Generates Q3*/
 function Quiz_q3(event) {
+    choice_2 = event.target.textContent
+    if (choice_2 === "3. " +q2c) {
+        score++;
+    } else {
+        timeleft = timeleft - 15
+    }
+
     event.preventDefault();
     Generate_Question(q3, q3a, q3b, q3c, q3d)
-    console.log("Quiz Activated - 3")
     var buttons_3 = document.querySelectorAll("button")
     var buttons_31 = buttons_3[0]
     var buttons_32 = buttons_3[1]
@@ -121,9 +167,15 @@ function Quiz_q3(event) {
 
 /*Generates Q2*/
 function Quiz_q2(event) {
+    choice_1 = event.target.textContent
+    if (choice_1 === "3. " +q1c) {
+        score++;
+    } else {
+        timeleft = timeleft - 15
+    }
+
     event.preventDefault();
     Generate_Question(q2, q2a, q2b, q2c, q2d)
-    console.log("Quiz Activated - 2")
     var buttons_2 = document.querySelectorAll("button")
     var buttons_21 = buttons_2[0]
     var buttons_22 = buttons_2[1]
@@ -139,8 +191,8 @@ function Quiz_q2(event) {
 /*Generates Q1, starts countdown*/
 function Quiz_intro_q1(event) {
     event.preventDefault();
-    countdown()
-    console.log("quiz activated")
+    countdown();
+    score = 0
     Generate_Question(q1, q1a, q1b, q1c, q1d);
 
     var buttons_1 = document.querySelectorAll("button")
