@@ -31,12 +31,12 @@ var q4d = "alertBox(\"Hello World\");"
 var score = 0 //holds the score
 var timeleft = 75 //holds the timer
 var scores = localStorage.getItem("scores")
-if (scores != null) {
+/*if (scores != null) {
     string_scorelist = scores
     score_list = string_scorelist.split(" ")
     score_list_b = score_list.slice(1)
     console.log(score_list_b)
-}
+}*/
 
 function countdown() {
     var timeInterval = setInterval(function() {
@@ -88,7 +88,13 @@ function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
 }
 
 function HandleFormSubmit(event) {
-    event.preventDefault
+    event.preventDefault()
+    var initials = document.querySelector("input")
+    initials.value.trim()
+    scores = scores + " " + JSON.stringify(score) + initials.value.trim()
+    localStorage.setItem("scores", scores)
+    console.log(scores)
+    window.location.replace("./highscores.html")
 }
 
 
@@ -132,12 +138,9 @@ function Quiz_end_from_completion(event) {
     var submit_button = document.createElement("button")
     submit_button.textContent = "Submit"
     document.getElementById("inputsect").appendChild(submit_button)
-
     var button_5 = document.querySelector("button")
-    button_5.addEventListener("click", HandleFormSubmit)
 
-    /*scores = scores + " " + JSON.stringify(score)
-    localStorage.setItem("scores", scores)*/
+    button_5.addEventListener("click", HandleFormSubmit)
 }
 
 function Quiz_end_from_timeout(event) {
