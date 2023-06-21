@@ -90,8 +90,9 @@ function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
 function HandleFormSubmit(event) {
     event.preventDefault()
     var initials = document.querySelector("input")
-    initials.value.trim()
-    scores = scores + " " + JSON.stringify(score) + initials.value.trim()
+    var player_initials = initials.value.replaceAll(" ", "")
+    console.log(player_initials)
+    scores = scores + " " + JSON.stringify(score) + player_initials
     localStorage.setItem("scores", scores)
     console.log(scores)
     window.location.replace("./highscores.html")
