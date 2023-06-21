@@ -19,8 +19,27 @@ if (highscores!==null && highscores!=""){
     }
 
     /*INSERT LIST SORTER HERE**/
-    console.log(sorted_scores_a)
+function sort_scores(array) {
+    for (var i=0;i<(array.length-1);i++){
+        var swp = false
 
+        for (var j=0;j<(array.length-i-1);j++){
+            if (array[j][0]>array[j+1][0]) {
+                var temp = array [j]
+                array[j]=array[j+1]
+                array[j+1] = temp
+                swp = true
+            }
+        }
+    if (!swp) {
+        break;
+    }
+    }
+    return(array)
+}
+console.log(sorted_scores_a)
+console.log(sort_scores(sorted_scores_a))
+sorted_scores_a = sorted_scores_a.reverse()
 /*
     console.log(sorted_scores_a)
     if (sorted_scores_a[0] === [NaN, '']){
