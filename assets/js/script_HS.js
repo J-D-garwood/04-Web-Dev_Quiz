@@ -1,3 +1,6 @@
+var highscores_list = document.getElementById("highscores-list")
+
+
 var highscores = localStorage.getItem("scores")
 highscores = highscores.split(" ")
 if (highscores[0]==="null"){
@@ -15,7 +18,14 @@ for (i=0;i<highscores.length;i++) {
 /*INSERT LIST SORTER HERE**/
 
 
-
+for (i=0;i<highscores.length;i++) {
+    var current_HS = document.createElement("div")
+    if ((i+1)==1) {
+        current_HS.setAttribute("style", "background-colour:purple")
+    }
+    current_HS.textContent = JSON.stringify(i+1) + ". " + sorted_scores_a[i][1] + " - " + sorted_scores_a[i][0]
+    highscores_list.appendChild(current_HS)
+}
 /*
 sorted_scores_b = []
 var current_lowest_score = sorted_scores_a[0][0]
