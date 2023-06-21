@@ -22,7 +22,6 @@ if (highscores!==null && highscores!=""){
 function sort_scores(array) {
     for (var i=0;i<(array.length-1);i++){
         var swp = false
-
         for (var j=0;j<(array.length-i-1);j++){
             if (array[j][0]>array[j+1][0]) {
                 var temp = array [j]

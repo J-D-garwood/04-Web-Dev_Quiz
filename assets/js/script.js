@@ -31,6 +31,8 @@ var q4d = "alertBox(\"Hello World\");"
 var score = 0 //holds the score
 var timeleft = 75 //holds the timer
 var scores = localStorage.getItem("scores")
+
+var not_done = false
 /*if (scores != null) {
     string_scorelist = scores
     score_list = string_scorelist.split(" ")
@@ -40,11 +42,12 @@ var scores = localStorage.getItem("scores")
 
 function countdown() {
     var timeInterval = setInterval(function() {
-        if (timeleft>0) {
+        if (timeleft>0 && !not_done) {
             clock.textContent = 'Time: ' + timeleft;
             timeleft--;
-        } else {
-            clock.textContent = 'TIME OUT!';
+        } 
+        else {
+            clock.textContent = 'Time: 0';
             clearInterval(timeInterval);
 
             /*Something goes here */
@@ -101,6 +104,7 @@ function HandleFormSubmit(event) {
 
 function Quiz_end_from_completion(event) {
     event.preventDefault()
+    not_done=true
     choice_4 = event.target.textContent
     if (choice_4 ==="3. " +q4c) {
         score++;
