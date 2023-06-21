@@ -32,35 +32,120 @@ var score = 0 //holds the score
 var timeleft = 75 //holds the timer
 var scores = localStorage.getItem("scores")
 
-var not_done = false
-/*if (scores != null) {
-    string_scorelist = scores
-    score_list = string_scorelist.split(" ")
-    score_list_b = score_list.slice(1)
-    console.log(score_list_b)
-}*/
-
 function countdown() {
     var timeInterval = setInterval(function() {
-        if (timeleft>0 && !not_done) {
+        if (timeleft>0) {
             clock.textContent = 'Time: ' + timeleft;
             timeleft--;
         } 
         else {
             clock.textContent = 'Time: 0';
             clearInterval(timeInterval);
+            while (main.childElementCount>0) {
+                main.children[0].remove();
+            }
+            var endscreen = document.createElement("div")
+            endscreen.setAttribute("id","endscreen")
+            endscreen.setAttribute("style", "width:800px; margin:auto; text-align:left")
+            document.getElementById("page-content").appendChild(endscreen)
 
-            /*Something goes here */
+            var Alldone = document.createElement("h1")
+            Alldone.textContent = "All done"
+            document.getElementById("endscreen").appendChild(Alldone)
+
+            var printedscore = document.createElement("p")
+            printedscore.textContent = "your final score was " + JSON.stringify(score)
+            document.getElementById("endscreen").appendChild(printedscore)
+
+            var input_sect = document.createElement("div")
+            input_sect.setAttribute("id","inputsect")
+            input_sect.setAttribute("style", "display:flex; margin-top: 30px")
+            document.getElementById("endscreen").appendChild(input_sect)
+
+            var enterinitals = document.createElement("div")
+            enterinitals.textContent = "Enter Initials: "
+            enterinitals.setAttribute("style", "height: 20px")
+            document.getElementById("inputsect").appendChild(enterinitals)
+
+            var input_entry = document.createElement("input")
+            input_entry.setAttribute("style", "height: 15px; width: 220px;margin-left:5px")
+            document.getElementById("inputsect").appendChild(input_entry)
+
+            var submit_button = document.createElement("button")
+            submit_button.textContent = "Submit"
+            document.getElementById("inputsect").appendChild(submit_button)
+            var button_5 = document.querySelector("button")
+
+            button_5.addEventListener("click", HandleFormSubmit)
         }
     }, 1000)
 }
 
-function Correct_banner() {
-    /*function to display correct banner*/
+/*function to display correct banner*/
+function correct_banner() {
+    var correct = document.createElement("div")
+    correct.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:500px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
+    correct.textContent = "Correct!"
+    var quick_time = 2
+    var timeInterval = setInterval( function() {
+        if (quick_time>1) {
+            document.getElementById("page-content").appendChild(correct)
+            quick_time--;
+        } else if (quick_time==1) {
+            main.children[main.childElementCount-1].remove()
+            quick_time--;
+        }
+    }, 400)
+} 
+function correct_banner_special() {
+    var correct = document.createElement("div")
+    correct.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:350px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
+    correct.textContent = "Correct!"
+    var quick_time = 2
+    var timeInterval = setInterval( function() {
+        if (quick_time>1) {
+            document.getElementById("page-content").appendChild(correct)
+            quick_time--;
+        } else if (quick_time==1) {
+            main.children[main.childElementCount-1].remove()
+            quick_time--;
+        }
+    }, 400)
 } 
 
-function inorrect_banner() {
-    /*function to display incorrect banner*/
+/*function to display incorrect banner*/
+function incorrect_banner() {
+    var incorrect = document.createElement("div")
+    incorrect.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:500px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
+    incorrect.textContent = "Incorrect!"
+    var quick_time = 2
+    var timeInterval = setInterval( function() {
+        if (quick_time>1) {
+            document.getElementById("page-content").appendChild(incorrect)
+            quick_time--;
+        } else if (quick_time==1) {
+            main.children[main.childElementCount-1].remove()
+            quick_time--;
+            return
+        }
+    }, 400)
+} 
+
+function incorrect_banner_special() {
+    var incorrect = document.createElement("div")
+    incorrect.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:350px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
+    incorrect.textContent = "Incorrect!"
+    var quick_time = 2
+    var timeInterval = setInterval( function() {
+        if (quick_time>1) {
+            document.getElementById("page-content").appendChild(incorrect)
+            quick_time--;
+        } else if (quick_time==1) {
+            main.children[main.childElementCount-1].remove()
+            quick_time--;
+            return
+        }
+    }, 400)
 } 
 
 function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
@@ -70,24 +155,42 @@ function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
     }
 
     var question = document.createElement("h1");
+    question.setAttribute("style", "text-align:left; margin-left:500px;")
     question.textContent = Q;
-    document.getElementById("page-content").appendChild(question);
+    document.getElementById("page-content").appendChild(question)
 
+    var answer_list = document.createElement("ul")
+    answer_list.setAttribute("id", "answerList")
+    answer_list.setAttribute("style","text-align:left;list-style-type:none; margin-left:450px")
+    document.getElementById("page-content").appendChild(answer_list)
+
+    var li_a = document.createElement("li")
     var answer_a = document.createElement("button")
+    answer_a.setAttribute("style", "margin:2px;padding:2px;border-radius:5px;")
     answer_a.textContent = "1. " + a;
-    document.getElementById("page-content").appendChild(answer_a);
+    li_a.appendChild(answer_a)
+    document.getElementById("answerList").append(li_a);
 
+    var li_b = document.createElement("li")
     var answer_b = document.createElement("button")
+    answer_b.setAttribute("style", "margin:2px;padding:2px;border-radius:5px;")
     answer_b.textContent = "2. " + b;
-    document.getElementById("page-content").appendChild(answer_b);
+    li_b.appendChild(answer_b)
+    document.getElementById("answerList").append(li_b);
 
+    var li_c = document.createElement("li")
     var answer_c = document.createElement("button")
+    answer_c.setAttribute("style", "margin:2px;padding:2px;border-radius:5px;")
     answer_c.textContent = "3. " + c;
-    document.getElementById("page-content").appendChild(answer_c);
+    li_c.appendChild(answer_c)
+    document.getElementById("answerList").append(li_c);
 
+    var li_d = document.createElement("li")
     var answer_d = document.createElement("button")
+    answer_d.setAttribute("style", "margin:2px;padding:2px;border-radius:5px;")
     answer_d.textContent = "4. " + d;
-    document.getElementById("page-content").appendChild(answer_d);
+    li_d.appendChild(answer_d)
+    document.getElementById("answerList").append(li_d);
 }
 
 function HandleFormSubmit(event) {
@@ -104,24 +207,20 @@ function HandleFormSubmit(event) {
 
 function Quiz_end_from_completion(event) {
     event.preventDefault()
-    not_done=true
-    choice_4 = event.target.textContent
-    if (choice_4 ==="3. " +q4c) {
-        score++;
-    }
 
     while (main.childElementCount>0) {
         main.children[0].remove();
     }
+
     var endscreen = document.createElement("div")
     endscreen.setAttribute("id","endscreen")
     endscreen.setAttribute("style", "width:800px; margin:auto; text-align:left")
     document.getElementById("page-content").appendChild(endscreen)
-
+        
     var Alldone = document.createElement("h1")
     Alldone.textContent = "All done"
     document.getElementById("endscreen").appendChild(Alldone)
-
+        
     var printedscore = document.createElement("p")
     printedscore.textContent = "your final score was " + JSON.stringify(score)
     document.getElementById("endscreen").appendChild(printedscore)
@@ -145,22 +244,19 @@ function Quiz_end_from_completion(event) {
     document.getElementById("inputsect").appendChild(submit_button)
     var button_5 = document.querySelector("button")
 
-    button_5.addEventListener("click", HandleFormSubmit)
-}
+    choice_4 = event.target.textContent
+    if (choice_4 ==="3. " +q4c) {
+        score++;
+        correct_banner_special()
+    } else {
+        incorrect_banner_special()
+    }
 
-function Quiz_end_from_timeout(event) {
-    event.preventDefault()
-}
+    button_5.addEventListener("click", HandleFormSubmit)
+    } 
 
 /*Generates Q4*/
 function Quiz_q4(event) {
-    choice_3 = event.target.textContent
-    if (choice_3 ==="4. " +q3d) {
-        score++;
-    } else {
-        timeleft = timeleft - 15
-    }
-
     event.preventDefault();
     Generate_Question(q4, q4a, q4b, q4c, q4d)
     var buttons_4 = document.querySelectorAll("button")
@@ -168,6 +264,15 @@ function Quiz_q4(event) {
     var buttons_42 = buttons_4[1]
     var buttons_43 = buttons_4[2]
     var buttons_44 = buttons_4[3]
+
+    choice_3 = event.target.textContent
+    if (choice_3 ==="4. " + q3d) {
+        score++;
+        correct_banner()
+    } else {
+        timeleft = timeleft - 15
+        incorrect_banner()
+    }
 
     buttons_41.addEventListener("click",Quiz_end_from_completion)
     buttons_42.addEventListener("click",Quiz_end_from_completion)
@@ -177,20 +282,23 @@ function Quiz_q4(event) {
 
 /*Generates Q3*/
 function Quiz_q3(event) {
-    choice_2 = event.target.textContent
-    if (choice_2 === "3. " +q2c) {
-        score++;
-    } else {
-        timeleft = timeleft - 15
-    }
-
     event.preventDefault();
+
     Generate_Question(q3, q3a, q3b, q3c, q3d)
     var buttons_3 = document.querySelectorAll("button")
     var buttons_31 = buttons_3[0]
     var buttons_32 = buttons_3[1]
     var buttons_33 = buttons_3[2]
     var buttons_34 = buttons_3[3]
+
+    choice_2 = event.target.textContent
+    if (choice_2 === "3. " +q2c) {
+        score++;
+        correct_banner()
+    } else {
+        timeleft = timeleft - 15
+        incorrect_banner()
+    }
 
     buttons_31.addEventListener("click",Quiz_q4)
     buttons_32.addEventListener("click",Quiz_q4)
@@ -200,14 +308,16 @@ function Quiz_q3(event) {
 
 /*Generates Q2*/
 function Quiz_q2(event) {
+    event.preventDefault();
+
     choice_1 = event.target.textContent
     if (choice_1 === "3. " +q1c) {
         score++;
+        
     } else {
         timeleft = timeleft - 15
     }
 
-    event.preventDefault();
     Generate_Question(q2, q2a, q2b, q2c, q2d)
     var buttons_2 = document.querySelectorAll("button")
     var buttons_21 = buttons_2[0]
@@ -215,14 +325,24 @@ function Quiz_q2(event) {
     var buttons_23 = buttons_2[2]
     var buttons_24 = buttons_2[3]
 
+    choice_1 = event.target.textContent
+    if (choice_1 === "3. " +q1c) {
+        score++;
+        correct_banner()
+    } else {
+        timeleft = timeleft - 15
+        incorrect_banner();
+    }
+
     buttons_21.addEventListener("click",Quiz_q3)
     buttons_22.addEventListener("click",Quiz_q3)
     buttons_23.addEventListener("click",Quiz_q3)
     buttons_24.addEventListener("click",Quiz_q3)
+    quick_time--;
 }
 
 /*Generates Q1, starts countdown*/
-function Quiz_intro_q1(event) {
+function Quiz_intro_q1(event){
     event.preventDefault();
     countdown();
     score = 0

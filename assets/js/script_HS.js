@@ -46,7 +46,7 @@ sorted_scores_a = sorted_scores_a.reverse()
     }*/
     for (i=0;i<highscores.length;i++) {
         var current_HS = document.createElement("div")
-        current_HS.setAttribute("style", "background-color:rgb(250, 153, 250);margin:1px")
+        current_HS.setAttribute("style", "background-color:rgb(250, 153, 250);margin:3px")
         current_HS.textContent = JSON.stringify(i+1) + ". " + sorted_scores_a[i][1] + " - " + sorted_scores_a[i][0]
         highscores_list.appendChild(current_HS)
     }
