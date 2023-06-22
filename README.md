@@ -30,4 +30,4 @@ https://j-d-garwood.github.io/03-Password-Generator/
 
 ## Image of deployed application
 
-![webpage screenshot](./assets/images/Deployed.png)
+![webpage screenshot](./assets/images/Screenshot%202023-06-22%20204132.png)
