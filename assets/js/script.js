@@ -82,84 +82,6 @@ function countdown() {
     }, 1000)
 }
 
-/*function to display correct banner*/
-function correct_banner() {
-    var correct = document.createElement("div")
-    correct.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:500px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
-    correct.textContent = "Correct!"
-    var count = 1
-    var quick_time = 2
-    var timeInterval = setInterval( function() {
-        if (quick_time>1) {
-            document.getElementById("page-content").appendChild(correct)
-            quick_time--;
-        } else if (quick_time==1 && count===1) {
-            main.children[main.childElementCount-1].remove()
-            count--;
-            quick_time--;
-            return;
-        }
-    }, 500)
-} 
-
-function correct_banner_special() {
-    var correct = document.createElement("div")
-    correct.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:350px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
-    correct.textContent = "Correct!"
-    var count = 1
-    var quick_time = 2
-    var timeInterval = setInterval( function() {
-        if (quick_time>1) {
-            document.getElementById("page-content").appendChild(correct)
-            quick_time--;
-        } else if (quick_time==1 && count===1) {
-            main.children[main.childElementCount-1].remove()
-            count--;
-            quick_time--;
-            return;
-        }
-    }, 500)
-} 
-
-/*function to display incorrect banner*/
-function incorrect_banner() {
-    var incorrect = document.createElement("div")
-    incorrect.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:500px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
-    incorrect.textContent = "Incorrect!"
-    var count = 1
-    var quick_time = 2
-    var timeInterval = setInterval( function() {
-        if (quick_time>1) {
-            document.getElementById("page-content").appendChild(incorrect)
-            quick_time--;
-        } else if (quick_time==1 && count===1) {
-            main.children[main.childElementCount-1].remove()
-            count--;
-            quick_time--;
-            return;
-        }
-    }, 500)
-} 
-
-function incorrect_banner_special() {
-    var incorrect = document.createElement("div")
-    incorrect.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:350px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
-    incorrect.textContent = "Incorrect!"
-    var count = 1
-    var quick_time = 2
-    var timeInterval = setInterval( function() {
-        if (quick_time>1) {
-            document.getElementById("page-content").appendChild(incorrect)
-            quick_time--;
-        } else if (quick_time==1 && count===1) {
-            main.children[main.childElementCount-1].remove()
-            count--;
-            quick_time--;
-            return;
-        }
-    }, 500)
-} 
-
 function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
     //loop to remove all main's current child elements
     while (main.childElementCount>0) {
@@ -220,10 +142,15 @@ function HandleFormSubmit(event) {
 function Quiz_end_from_completion(event) {
     event.preventDefault()
     timeleft = 0;
+
+    choice_4 = event.target.textContent
     while (main.childElementCount>0) {
         main.children[0].remove();
     }
 
+    if (choice_4 ==="3. " +q4c) {
+        score++;
+    }
     var endscreen = document.createElement("div")
     endscreen.setAttribute("id","endscreen")
     endscreen.setAttribute("style", "width:800px; margin:auto; text-align:left")
@@ -252,18 +179,10 @@ function Quiz_end_from_completion(event) {
     document.getElementById("inputsect").appendChild(input_entry)
 
     var submit_button = document.createElement("button")
-    submit_button.setAttribute("style", "margin-left:5px;padding:1px;border-radius:5px;")
+    submit_button.setAttribute("style", "padding:1px;border-radius:2px;")
     submit_button.textContent = "Submit"
     document.getElementById("inputsect").appendChild(submit_button)
     var button_5 = document.querySelector("button")
-
-    choice_4 = event.target.textContent
-    if (choice_4 ==="3. " +q4c) {
-        score++;
-        correct_banner_special()
-    } else {
-        incorrect_banner_special()
-    }
 
     button_5.addEventListener("click", HandleFormSubmit)
     } 
@@ -271,21 +190,20 @@ function Quiz_end_from_completion(event) {
 /*Generates Q4*/
 function Quiz_q4(event) {
     event.preventDefault();
+
+    choice_3 = event.target.textContent
+    if (choice_3 ==="4. " + q3d) {
+        score++;
+    } else {
+        timeleft = timeleft - 15
+    }
+
     Generate_Question(q4, q4a, q4b, q4c, q4d)
     var buttons_4 = document.querySelectorAll("button")
     var buttons_41 = buttons_4[0]
     var buttons_42 = buttons_4[1]
     var buttons_43 = buttons_4[2]
     var buttons_44 = buttons_4[3]
-
-    choice_3 = event.target.textContent
-    if (choice_3 ==="4. " + q3d) {
-        score++;
-        correct_banner()
-    } else {
-        timeleft = timeleft - 15
-        incorrect_banner()
-    }
 
     buttons_41.addEventListener("click",Quiz_end_from_completion)
     buttons_42.addEventListener("click",Quiz_end_from_completion)
@@ -297,6 +215,13 @@ function Quiz_q4(event) {
 function Quiz_q3(event) {
     event.preventDefault();
 
+    choice_2 = event.target.textContent
+    if (choice_2 === "3. " +q2c) {
+        score++;
+    } else {
+        timeleft = timeleft - 15
+    }
+
     Generate_Question(q3, q3a, q3b, q3c, q3d)
     var buttons_3 = document.querySelectorAll("button")
     var buttons_31 = buttons_3[0]
@@ -304,14 +229,6 @@ function Quiz_q3(event) {
     var buttons_33 = buttons_3[2]
     var buttons_34 = buttons_3[3]
 
-    choice_2 = event.target.textContent
-    if (choice_2 === "3. " +q2c) {
-        score++;
-        correct_banner()
-    } else {
-        timeleft = timeleft - 15
-        incorrect_banner()
-    }
 
     buttons_31.addEventListener("click",Quiz_q4)
     buttons_32.addEventListener("click",Quiz_q4)
@@ -323,6 +240,13 @@ function Quiz_q3(event) {
 function Quiz_q2(event) {
     event.preventDefault();
 
+    choice_1 = event.target.textContent
+    if (choice_1 === "3. " +q1c) {
+        score++;
+    } else {
+        timeleft = timeleft - 15
+    }
+
     Generate_Question(q2, q2a, q2b, q2c, q2d)
     var buttons_2 = document.querySelectorAll("button")
     var buttons_21 = buttons_2[0]
@@ -330,20 +254,10 @@ function Quiz_q2(event) {
     var buttons_23 = buttons_2[2]
     var buttons_24 = buttons_2[3]
 
-    choice_1 = event.target.textContent
-    if (choice_1 === "3. " +q1c) {
-        score++;
-        correct_banner()
-    } else {
-        timeleft = timeleft - 15
-        incorrect_banner();
-    }
-
     buttons_21.addEventListener("click",Quiz_q3)
     buttons_22.addEventListener("click",Quiz_q3)
     buttons_23.addEventListener("click",Quiz_q3)
     buttons_24.addEventListener("click",Quiz_q3)
-    quick_time--;
 }
 
 /*Generates Q1, starts countdown*/
