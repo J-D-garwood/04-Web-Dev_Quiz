@@ -28,6 +28,8 @@ var q4b = "msg(\"Hello World\");"
 var q4c = "alert(\"Hello World\");" //correct answer
 var q4d = "alertBox(\"Hello World\");"
 
+var wheth_crr = false
+
 var score = 0 //holds the score
 var timeleft = 75 //holds the timer
 var scores = localStorage.getItem("scores")
@@ -46,7 +48,7 @@ function countdown() {
             }
             var endscreen = document.createElement("div")
             endscreen.setAttribute("id","endscreen")
-            endscreen.setAttribute("style", "width:800px; margin:auto; text-align:left")
+            endscreen.setAttribute("style", "width:800px; margin-left:500px; text-align:left")
             document.getElementById("page-content").appendChild(endscreen)
 
             var Alldone = document.createElement("h1")
@@ -78,8 +80,25 @@ function countdown() {
             var button_5 = document.querySelector("button")
 
             button_5.addEventListener("click", HandleFormSubmit)
+            return
         }
     }, 1000)
+}
+
+function display_banner(correct, extra_left_margin) {
+    var banner = document.createElement("div")
+    if (correct) {
+        banner.textContent = "Correct!!"
+    } else {
+        banner.textContent = "Incorrect!!"
+    }
+    if (extra_left_margin) {
+        var left_margin = "500px"
+    } else {
+        var left_margin = "500px"
+    }
+    banner.setAttribute("style", "width: 400px; margin-top:5px; margin-left:"+left_margin+";padding-top:8px;border-top:2px solid;border-color:grey;color:grey")
+    document.getElementById("page-content").appendChild(banner)
 }
 
 function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
@@ -141,7 +160,6 @@ function HandleFormSubmit(event) {
 
 function Quiz_end_from_completion(event) {
     event.preventDefault()
-    timeleft = 0;
 
     choice_4 = event.target.textContent
     while (main.childElementCount>0) {
@@ -150,14 +168,15 @@ function Quiz_end_from_completion(event) {
 
     if (choice_4 ==="3. " +q4c) {
         score++;
+        wheth_crr = true
     }
     var endscreen = document.createElement("div")
     endscreen.setAttribute("id","endscreen")
-    endscreen.setAttribute("style", "width:800px; margin:auto; text-align:left")
+    endscreen.setAttribute("style", "width:800px; margin-left:500px; text-align:left")
     document.getElementById("page-content").appendChild(endscreen)
         
     var Alldone = document.createElement("h1")
-    Alldone.textContent = "All done"
+    Alldone.textContent = "All done!"
     document.getElementById("endscreen").appendChild(Alldone)
         
     var printedscore = document.createElement("p")
@@ -179,12 +198,15 @@ function Quiz_end_from_completion(event) {
     document.getElementById("inputsect").appendChild(input_entry)
 
     var submit_button = document.createElement("button")
-    submit_button.setAttribute("style", "padding:1px;border-radius:2px;")
+    submit_button.setAttribute("style", "margin-left:5px;padding:3px;border-radius:5px;")
     submit_button.textContent = "Submit"
     document.getElementById("inputsect").appendChild(submit_button)
     var button_5 = document.querySelector("button")
 
+    display_banner(wheth_crr, false)
+
     button_5.addEventListener("click", HandleFormSubmit)
+
     } 
 
 /*Generates Q4*/
@@ -194,11 +216,13 @@ function Quiz_q4(event) {
     choice_3 = event.target.textContent
     if (choice_3 ==="4. " + q3d) {
         score++;
+        wheth_crr = true
     } else {
         timeleft = timeleft - 15
     }
 
     Generate_Question(q4, q4a, q4b, q4c, q4d)
+    display_banner(wheth_crr, true)
     var buttons_4 = document.querySelectorAll("button")
     var buttons_41 = buttons_4[0]
     var buttons_42 = buttons_4[1]
@@ -209,6 +233,7 @@ function Quiz_q4(event) {
     buttons_42.addEventListener("click",Quiz_end_from_completion)
     buttons_43.addEventListener("click",Quiz_end_from_completion)
     buttons_44.addEventListener("click",Quiz_end_from_completion)
+    wheth_crr = false
 }
 
 /*Generates Q3*/
@@ -218,11 +243,13 @@ function Quiz_q3(event) {
     choice_2 = event.target.textContent
     if (choice_2 === "3. " +q2c) {
         score++;
+        wheth_crr = true
     } else {
         timeleft = timeleft - 15
     }
 
     Generate_Question(q3, q3a, q3b, q3c, q3d)
+    display_banner(wheth_crr, true)
     var buttons_3 = document.querySelectorAll("button")
     var buttons_31 = buttons_3[0]
     var buttons_32 = buttons_3[1]
@@ -234,6 +261,7 @@ function Quiz_q3(event) {
     buttons_32.addEventListener("click",Quiz_q4)
     buttons_33.addEventListener("click",Quiz_q4)
     buttons_34.addEventListener("click",Quiz_q4)
+    wheth_crr = false
 }
 
 /*Generates Q2*/
@@ -243,11 +271,13 @@ function Quiz_q2(event) {
     choice_1 = event.target.textContent
     if (choice_1 === "3. " +q1c) {
         score++;
+        wheth_crr = true
     } else {
         timeleft = timeleft - 15
     }
 
     Generate_Question(q2, q2a, q2b, q2c, q2d)
+    display_banner(wheth_crr, true)
     var buttons_2 = document.querySelectorAll("button")
     var buttons_21 = buttons_2[0]
     var buttons_22 = buttons_2[1]
@@ -258,6 +288,7 @@ function Quiz_q2(event) {
     buttons_22.addEventListener("click",Quiz_q3)
     buttons_23.addEventListener("click",Quiz_q3)
     buttons_24.addEventListener("click",Quiz_q3)
+    wheth_crr = false
 }
 
 /*Generates Q1, starts countdown*/
