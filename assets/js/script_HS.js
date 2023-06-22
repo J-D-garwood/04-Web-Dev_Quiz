@@ -1,7 +1,9 @@
+//gathering key page elements
 var highscores_list = document.getElementById("highscores-list")
 var go_back_btn = document.getElementById("go_back_btn")
 var clear_highscores_btn = document.getElementById("clear_highscores_btn")
 
+//accessing locally stored highscores w/ and arranging initals and arranging them into an array of length 2 arrays
 var highscores = localStorage.getItem("scores")
 console.log("|"+highscores+"|")
 if (highscores!==null && highscores!=""){
@@ -18,7 +20,7 @@ if (highscores!==null && highscores!=""){
         sorted_scores_a.push(current_player)
     }
 
-    /*INSERT LIST SORTER HERE**/
+//sorting scores list from lowest to highest
 function sort_scores(array) {
     for (var i=0;i<(array.length-1);i++){
         var swp = false
@@ -38,8 +40,10 @@ function sort_scores(array) {
 }
 console.log(sorted_scores_a)
 console.log(sort_scores(sorted_scores_a))
+//swapping order of scores list to from highest to lowest
 sorted_scores_a = sorted_scores_a.reverse()
 
+//writing highscores to the page in order from highest to lowest 
 for (i=0;i<highscores.length;i++) {
     var current_HS = document.createElement("div")
     current_HS.setAttribute("style", "background-color:rgb(249, 188, 249);margin:3px")
@@ -48,6 +52,8 @@ for (i=0;i<highscores.length;i++) {
 }
     }
 
+
+//clear highscores button functionality
 function clear_highscores(event) {
     event.preventDefault()
     while (highscores_list.childElementCount>0) {
@@ -56,38 +62,15 @@ function clear_highscores(event) {
     localStorage.setItem("scores", "")
 }
 
+// return player to web page button functionality
 function return_to_quiz(event) {
     event.preventDefault()
     window.location.replace("./index.html")
 }
 
+//event listeners for both buttons
 clear_highscores_btn.addEventListener("click", clear_highscores)
 go_back_btn.addEventListener("click", return_to_quiz)
 
 
 
-/*
-sorted_scores_b = []
-var current_lowest_score = sorted_scores_a[0][0]
-for (i=1;i<highscores.length;i++) {
-    if (current_lowest_score>sorted_scores_a[i][0]) {
-        sorted_scores_a.push(sorted_scores_a[i])
-
-    } 
-    current_lowest_score = sorted_scores_a[i][0]
-}
-console.log(sorted_scores_b)
-
-var current_highest_score = sorted_scores_a[0][0]
-sorted_scores_b = []
-console.log(sorted_scores_a)
-i = 0
-while (true) {
-    if (sorted_scores_a[i][0]>current_highest_score) {
-        sorted_scores_b.push(sorted_scores_a[i])
-        current_highest_score = sorted_scores_a[i][0]
-    }
-    i++;
-}
-console.log(sorted_scores_a)
-console.log(sorted_scores_b)*/

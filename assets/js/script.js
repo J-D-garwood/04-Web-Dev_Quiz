@@ -1,3 +1,4 @@
+//gathering key elements
 var start_button = document.querySelector(".start-button");
 var body = document.querySelector("body");
 var main = document.querySelector("#page-content");
@@ -28,12 +29,15 @@ var q4b = "msg(\"Hello World\");"
 var q4c = "alert(\"Hello World\");" //correct answer
 var q4d = "alertBox(\"Hello World\");"
 
+//display_banner parameter
 var wheth_crr = false
 
+//score values
 var score = 0 //holds the score
 var timeleft = 75 //holds the timer
 var scores = localStorage.getItem("scores")
 
+//timer function
 function countdown() {
     var timeInterval = setInterval(function() {
         if (timeleft>0) {
@@ -84,6 +88,7 @@ function countdown() {
     }, 1000)
 }
 
+//"correct"/"incorrect" banner function
 function display_banner(correct, extra_left_margin) {
     var banner = document.createElement("div")
     if (correct) {
@@ -112,7 +117,8 @@ function display_banner(correct, extra_left_margin) {
     }, 500)
 }
 
-function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
+//Question Generator w/ questions as parameters
+function Generate_Question(Q, a, b, c, d) {
     //loop to remove all main's current child elements
     while (main.childElementCount>0) {
         main.children[0].remove();
@@ -157,6 +163,7 @@ function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
     document.getElementById("answerList").append(li_d);
 }
 
+//Submit Form Function (Saving new score w/ initals to localstorage and navigating to highscores)
 function HandleFormSubmit(event) {
     event.preventDefault()
     var initials = document.querySelector("input")
@@ -168,7 +175,7 @@ function HandleFormSubmit(event) {
     window.location.replace("./highscores.html")
 }
 
-
+//Final page generation w/ input section to save initials
 function Quiz_end_from_completion(event) {
     event.preventDefault()
 
@@ -302,7 +309,7 @@ function Quiz_q2(event) {
     wheth_crr = false
 }
 
-/*Generates Q1, starts countdown*/
+/*Generates Q1, starts timer*/
 function Quiz_intro_q1(event){
     event.preventDefault();
     countdown();

@@ -1,9 +1,10 @@
+/*overarching font styling and setting margins to zero*/
 * {
     font-family: Arial, Helvetica, sans-serif;
-    /*border: 1px solid;*/
     margin: 0;
 }
 
+/*link styling "view highscores"*/
 a {
     color: purple;
     font-size: larger;
@@ -11,34 +12,42 @@ a {
     padding-left: 5px;
 }
 
+/*body styling*/
 body {
     border: none;
 }
 
+/*header styling*/
 header {
     display: flex;
     height: 50px;
     margin-bottom: 120px;
 }
 
+/*main "page content" styling */
 main {
     text-align: center;
 }
 
+/*h1 styling*/
 h1 {
     margin-bottom: 10px;
 }
 
+/*overall button styling*/
 button {
     display: inline-block;
     color: white;
     background-color: rgb(69, 7, 69);
 }
+
+/*overall button "hover" styling*/
 button:hover {
     background-color: purple;
     cursor: pointer;
 }
 
+/*div styling*/
 div {
     text-align: left;
     padding-top: 2px;
@@ -46,21 +55,25 @@ div {
     padding-left: 3px;
 }
 
+/*timer styling*/
 #timer {
     margin-right:3px;
     margin-left: auto;
     padding-top: 15px;
 }
 
+/*highscores styling*/
 #linkToHighscores {
     padding-top: 15px;
 }
 
+/*intro styling*/
 .intro {
     font-size: 20px;
     margin-bottom: 10px;
 }
 
+/*start button styling*/
 .start-button {
     height: 50px;
     width: 180px;
@@ -70,11 +83,13 @@ div {
     font-size: 25px;
 }
 
+/*start button "hover styling"*/
 .start-button:hover {
     background-color: purple;
     cursor: pointer;
 }
 
+/*"answer" styling*/
 .answer {
 margin-right: none;
 }
