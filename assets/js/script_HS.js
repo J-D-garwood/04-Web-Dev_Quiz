@@ -39,46 +39,14 @@ function sort_scores(array) {
 console.log(sorted_scores_a)
 console.log(sort_scores(sorted_scores_a))
 sorted_scores_a = sorted_scores_a.reverse()
-/*
-    console.log(sorted_scores_a)
-    if (sorted_scores_a[0] === [NaN, '']){
-        sorted_scores_a = sorted_scores_a.slice(1)
-    }*/
-    for (i=0;i<highscores.length;i++) {
-        var current_HS = document.createElement("div")
-        current_HS.setAttribute("style", "background-color:rgb(250, 153, 250);margin:3px")
-        current_HS.textContent = JSON.stringify(i+1) + ". " + sorted_scores_a[i][1] + " - " + sorted_scores_a[i][0]
-        highscores_list.appendChild(current_HS)
-    }
-    }
-/*
-    var sorted_scores_a = []
-    for (i=0;i<highscores.length;i++) {
-        var score = parseInt(highscores[i][0])
-        var initials = highscores[i].slice(1)
-        var current_player = [score, initials]
-        sorted_scores_a.push(current_player)
-    }
-
-    /*INSERT LIST SORTER HERE*
-    for (i=0;i<highscores.length;i++) {
-        /*** 
-}
-
-
-
 
 for (i=0;i<highscores.length;i++) {
     var current_HS = document.createElement("div")
-    if (i % 2 !== 0) {
-        current_HS.setAttribute("style", "background-color:rgb(250, 153, 250);")
-    } else {
-        current_HS.setAttribute("style", "background-color:white;")
-    }
-    current_HS.setAttribute("style", "margin:1px;")
+    current_HS.setAttribute("style", "background-color:rgb(250, 153, 250);margin:3px")
     current_HS.textContent = JSON.stringify(i+1) + ". " + sorted_scores_a[i][1] + " - " + sorted_scores_a[i][0]
     highscores_list.appendChild(current_HS)
-}*/
+}
+    }
 
 function clear_highscores(event) {
     event.preventDefault()

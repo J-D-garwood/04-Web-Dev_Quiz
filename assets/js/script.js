@@ -3,7 +3,7 @@ var body = document.querySelector("body");
 var main = document.querySelector("#page-content");
 var clock = document.querySelector('#timer')
 
-
+// Questions
 var q1 = "What does HTML stand for?"
 var q1a = "Hyperlinks and Text Markup Language"
 var q1b = "Home Tool Markup Language"
@@ -42,7 +42,6 @@ function countdown() {
         } 
         else {
             clock.textContent = 'Time: 0';
-            clearInterval(timeInterval);
             while (main.childElementCount>0) {
                 main.children[0].remove();
             }
@@ -52,7 +51,7 @@ function countdown() {
             document.getElementById("page-content").appendChild(endscreen)
 
             var Alldone = document.createElement("h1")
-            Alldone.textContent = "All done"
+            Alldone.textContent = "All done!"
             document.getElementById("endscreen").appendChild(Alldone)
 
             var printedscore = document.createElement("p")
@@ -80,7 +79,7 @@ function countdown() {
             var button_5 = document.querySelector("button")
 
             button_5.addEventListener("click", HandleFormSubmit)
-            return
+            clearInterval(timeInterval);
         }
     }, 1000)
 }
@@ -99,6 +98,18 @@ function display_banner(correct, extra_left_margin) {
     }
     banner.setAttribute("style", "width: 400px; margin-top:5px; margin-left:"+left_margin+";padding-top:8px;border-top:2px solid;border-color:grey;color:grey")
     document.getElementById("page-content").appendChild(banner)
+    var index = main.childElementCount - 1 
+    var tmr = 2
+    var timeInterval = setInterval( function() {
+        if (tmr === 2) {
+            tmr--;
+        } else if (tmr === 1) {
+            main.children[index].remove();
+            tmr--
+        } else {
+            clearInterval(timeInterval)
+        }
+    }, 500)
 }
 
 function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
