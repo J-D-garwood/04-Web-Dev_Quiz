@@ -73,6 +73,7 @@ function countdown() {
 
             var submit_button = document.createElement("button")
             submit_button.textContent = "Submit"
+            submit_button.setAttribute("style", "margin-left:5px;padding:1px;border-radius:5px;")
             document.getElementById("inputsect").appendChild(submit_button)
             var button_5 = document.querySelector("button")
 
@@ -86,31 +87,38 @@ function correct_banner() {
     var correct = document.createElement("div")
     correct.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:500px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
     correct.textContent = "Correct!"
+    var count = 1
     var quick_time = 2
     var timeInterval = setInterval( function() {
         if (quick_time>1) {
             document.getElementById("page-content").appendChild(correct)
             quick_time--;
-        } else if (quick_time==1) {
+        } else if (quick_time==1 && count===1) {
             main.children[main.childElementCount-1].remove()
+            count--;
             quick_time--;
+            return;
         }
-    }, 400)
+    }, 500)
 } 
+
 function correct_banner_special() {
     var correct = document.createElement("div")
     correct.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:350px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
     correct.textContent = "Correct!"
+    var count = 1
     var quick_time = 2
     var timeInterval = setInterval( function() {
         if (quick_time>1) {
             document.getElementById("page-content").appendChild(correct)
             quick_time--;
-        } else if (quick_time==1) {
+        } else if (quick_time==1 && count===1) {
             main.children[main.childElementCount-1].remove()
+            count--;
             quick_time--;
+            return;
         }
-    }, 400)
+    }, 500)
 } 
 
 /*function to display incorrect banner*/
@@ -118,34 +126,38 @@ function incorrect_banner() {
     var incorrect = document.createElement("div")
     incorrect.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:500px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
     incorrect.textContent = "Incorrect!"
+    var count = 1
     var quick_time = 2
     var timeInterval = setInterval( function() {
         if (quick_time>1) {
             document.getElementById("page-content").appendChild(incorrect)
             quick_time--;
-        } else if (quick_time==1) {
+        } else if (quick_time==1 && count===1) {
             main.children[main.childElementCount-1].remove()
+            count--;
             quick_time--;
-            return
+            return;
         }
-    }, 400)
+    }, 500)
 } 
 
 function incorrect_banner_special() {
     var incorrect = document.createElement("div")
     incorrect.setAttribute("style", "color:grey;border-color:grey;border-top:1px solid; margin-left:350px;margin-top:5px;padding-top:5px;font-size:larger;width:500px")
     incorrect.textContent = "Incorrect!"
+    var count = 1
     var quick_time = 2
     var timeInterval = setInterval( function() {
         if (quick_time>1) {
             document.getElementById("page-content").appendChild(incorrect)
             quick_time--;
-        } else if (quick_time==1) {
+        } else if (quick_time==1 && count===1) {
             main.children[main.childElementCount-1].remove()
+            count--;
             quick_time--;
-            return
+            return;
         }
-    }, 400)
+    }, 500)
 } 
 
 function Generate_Question(Q, a, b, c, d/*, /*correct_ans*/) {
@@ -207,7 +219,7 @@ function HandleFormSubmit(event) {
 
 function Quiz_end_from_completion(event) {
     event.preventDefault()
-
+    timeleft = 0;
     while (main.childElementCount>0) {
         main.children[0].remove();
     }
@@ -240,6 +252,7 @@ function Quiz_end_from_completion(event) {
     document.getElementById("inputsect").appendChild(input_entry)
 
     var submit_button = document.createElement("button")
+    submit_button.setAttribute("style", "margin-left:5px;padding:1px;border-radius:5px;")
     submit_button.textContent = "Submit"
     document.getElementById("inputsect").appendChild(submit_button)
     var button_5 = document.querySelector("button")
@@ -309,14 +322,6 @@ function Quiz_q3(event) {
 /*Generates Q2*/
 function Quiz_q2(event) {
     event.preventDefault();
-
-    choice_1 = event.target.textContent
-    if (choice_1 === "3. " +q1c) {
-        score++;
-        
-    } else {
-        timeleft = timeleft - 15
-    }
 
     Generate_Question(q2, q2a, q2b, q2c, q2d)
     var buttons_2 = document.querySelectorAll("button")
